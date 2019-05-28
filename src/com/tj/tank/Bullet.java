@@ -21,6 +21,38 @@ public class Bullet {
         return group;
     }
 
+    public TankFrame getTf() {
+        return tf;
+    }
+
+    public void setTf(TankFrame tf) {
+        this.tf = tf;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public Dir getDir() {
+        return dir;
+    }
+
+    public void setDir(Dir dir) {
+        this.dir = dir;
+    }
+
     public void setGroup(Group group) {
         this.group = group;
     }
@@ -36,6 +68,7 @@ public class Bullet {
         ret.y = y;
         ret.width = WIDTH;
         ret.height = HEIGHT;
+        tf.bullets.add(this);
     }
 
     public void paint(Graphics g) {
@@ -86,7 +119,7 @@ public class Bullet {
 
     public void collideWith(Tank tank) {
 
-        if (tank.getGroup() == this.group) return;
+        if (tank.group == this.group) return;
 
         /*Rectangle rec = new Rectangle(x,y,WIDTH,HEIGHT);*/
         /*Rectangle rec2 = new Rectangle(tank.getX(),tank.getY(),Tank.WIDTH,Tank.HEIGHT);*/

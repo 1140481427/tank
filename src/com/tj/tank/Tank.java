@@ -1,14 +1,15 @@
 package com.tj.tank;
 
 import java.awt.*;
+import java.util.Properties;
 import java.util.Random;
 
 public class Tank {
-    private int x , y;
+    int x , y;
     private static final int SPEED = Integer.parseInt((String)PropertyMgr.getInstance().get("bulletSpeed"));
-    private Dir dir = Dir.DOWN;
+    Dir dir = Dir.DOWN;
     private boolean moving = true;
-    private TankFrame tf = null;
+    TankFrame tf = null;
 
     Rectangle ret = new Rectangle();
     public static int WIDTH = ResourceMgr.goodTankD.getWidth();
@@ -16,7 +17,11 @@ public class Tank {
 
     public boolean isLiving = true;
     public Random random = new Random();
-    private Group group = Group.BAD;
+    Group group = Group.BAD;
+    FireStrategy fireStrategy = null;
+
+
+
     public boolean isMoving() {
         return moving;
     }
@@ -25,37 +30,6 @@ public class Tank {
         this.moving = moving;
     }
 
-    public Dir getDir() {
-        return dir;
-    }
-
-    public void setDir(Dir dir) {
-        this.dir = dir;
-    }
-
-    public Group getGroup() {
-        return group;
-    }
-
-    public void setGroup(Group group) {
-        this.group = group;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
 
     public Tank(int x, int y, Dir dir, TankFrame tf,Group group){
         super();
@@ -69,6 +43,22 @@ public class Tank {
         ret.y = y;
         ret.width = WIDTH;
         ret.height = HEIGHT;
+
+        if(group == Group.GOOD) {
+            /*String goodFSName = (String) PropertyMgr.getInstance().get("goodFs");
+            try {
+                fireStrategy = (FireStrategy) Class.forName(goodFSName).newInstance();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }*/
+            fireStrategy = MyTankBoundsFire.getInstance();
+        }
+        else fireStrategy = DefaultFireStrategy.getInstance();
+
     }
     public void paint(Graphics g) {
 
@@ -152,9 +142,7 @@ public class Tank {
      * 坦克开火方法
      */
     public void fire() {
-        int bX = this.x + WIDTH/2 - Bullet.WIDTH/2;
-        int bY = this.y + HEIGHT/2 - Bullet.HEIGHT/2;
-        tf.bullets.add(new Bullet(bX,bY,dir,this.tf,this.group));
+        fireStrategy.fire(this);
     }
 
     public void die() {

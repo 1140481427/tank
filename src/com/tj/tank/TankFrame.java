@@ -128,6 +128,7 @@ public class TankFrame extends Frame {
                     bR = false;
                     break;
                 case KeyEvent.VK_CONTROL:
+                    //四面设计策略
                     myTank.fire();
                     break;
                 default:
@@ -140,10 +141,10 @@ public class TankFrame extends Frame {
                 myTank.setMoving(false);
             } else {
                 myTank.setMoving(true);
-                if(bL) myTank.setDir(Dir.LEFT);
-                if(bR) myTank.setDir(Dir.RIGHT);
-                if(bU) myTank.setDir(Dir.UP);
-                if(bD) myTank.setDir(Dir.DOWN);
+                if(bL) myTank.dir = (Dir.LEFT);
+                if(bR) myTank.dir = (Dir.RIGHT);
+                if(bU) myTank.dir = (Dir.UP);
+                if(bD) myTank.dir = (Dir.DOWN);
             }
 
 

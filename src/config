@@ -1,5 +1,9 @@
+#tank count at initialization
 initTankCount=10
 gameWidth=1080
 gameHeight=720
 tankSpeed=5
 bulletSpeed=10
+#fireStrategy
+goodFs=com.tj.tank.MyTankBoundsFire
+badFs=com.tj.tank.DefaultFireStrategy
