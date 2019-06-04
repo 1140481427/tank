@@ -1,13 +1,14 @@
-package com.tj.tank;
+package com.tj.tank.abstractfactory;
 
-import com.tj.tank.abstractfactory.BaseExplode;
+import com.tj.tank.ResourceMgr;
+import com.tj.tank.TankFrame;
 
 import java.awt.*;
 
 /**
  * 子弹
  */
-public class Explode extends BaseExplode {
+public class RectExplode extends BaseExplode {
 
     private int x ,y ;
     public static final int WIDTH = ResourceMgr.explodes[0].getWidth();
@@ -17,7 +18,7 @@ public class Explode extends BaseExplode {
     private TankFrame tf = null;
     private int step = 0;
 
-    public Explode(int x, int y, TankFrame tf) {
+    public RectExplode(int x, int y, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.tf = tf;
@@ -27,13 +28,18 @@ public class Explode extends BaseExplode {
 
     @Override
     public void paint(Graphics g) {
+        Color c = g.getColor();
+        g.setColor(Color.red);
 
-        g.drawImage(ResourceMgr.explodes[step++],x,y,null);
+        g.drawRect(x,y,10*step,10*step);
+        step++;
+        //g.drawImage(ResourceMgr.explodes[step++],x,y,null);
 
-        if(step >= ResourceMgr.explodes.length){
+        if(step >= 15){
             tf.exploads.remove(this);
             step = 0;
         }
+        g.setColor(c);
     }
 
 

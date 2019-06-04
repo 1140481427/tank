@@ -1,10 +1,12 @@
 package com.tj.tank;
 
+import com.tj.tank.abstractfactory.BaseTank;
+
 import java.awt.*;
 import java.util.Properties;
 import java.util.Random;
 
-public class Tank {
+public class Tank extends BaseTank {
     int x , y;
     private static final int SPEED = Integer.parseInt((String)PropertyMgr.getInstance().get("bulletSpeed"));
     Dir dir = Dir.DOWN;
@@ -148,7 +150,7 @@ public class Tank {
     public void die() {
         int eX = this.x + WIDTH/2 - Explode.WIDTH/2;
         int eY = this.y + HEIGHT/2 - Explode.HEIGHT/2;
-        tf.exploads.add(new Explode(eX,eY,tf));
+        tf.exploads.add(tf.gm.createExplode(eX,eY,tf));
         this.isLiving = false;
     }
 }

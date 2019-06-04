@@ -1,11 +1,13 @@
 package com.tj.tank;
 
+import com.tj.tank.abstractfactory.BaseBullet;
+
 import java.awt.*;
 
 /**
  * 子弹
  */
-public class Bullet {
+public class Bullet extends BaseBullet{
 
     private int x = 200;
     private int y = 200;

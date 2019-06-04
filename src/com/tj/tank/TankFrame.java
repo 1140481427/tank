@@ -1,5 +1,10 @@
 package com.tj.tank;
 
+import com.tj.tank.abstractfactory.BaseExplode;
+import com.tj.tank.abstractfactory.DefaultFactory;
+import com.tj.tank.abstractfactory.GameFactory;
+import com.tj.tank.abstractfactory.RectFactory;
+
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -20,8 +25,10 @@ public class TankFrame extends Frame {
 
     List<Tank> dfTank = new ArrayList<Tank>();
     //Bullet b = new Bullet(200,299,Dir.DOWN,this);
-    List<Explode> exploads = new ArrayList<>();
+    public List<BaseExplode> exploads = new ArrayList<>();
    // Explode e = new Explode(100,100,this);
+
+    GameFactory gm = RectFactory.getInstance();
 
     public TankFrame(){
         setSize(GAME_WIDTH, GAME_HEIGHT);
