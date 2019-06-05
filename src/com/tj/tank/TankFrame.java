@@ -13,15 +13,9 @@ public class TankFrame extends Frame {
     public static final int GAME_WIDTH = Integer.parseInt((String)PropertyMgr.getInstance().get("gameWidth"));
     public static final int GAME_HEIGHT = Integer.parseInt((String)PropertyMgr.getInstance().get("gameHeight"));
 
+    GameModel gm = new GameModel();
 
-    Tank myTank = new Tank(200,200,Dir.DOWN,this,Group.GOOD);
 
-    List<Bullet> bullets = new ArrayList<Bullet>();
-
-    List<Tank> dfTank = new ArrayList<Tank>();
-    //Bullet b = new Bullet(200,299,Dir.DOWN,this);
-    List<Explode> exploads = new ArrayList<>();
-   // Explode e = new Explode(100,100,this);
 
     public TankFrame(){
         setSize(GAME_WIDTH, GAME_HEIGHT);
@@ -54,34 +48,7 @@ public class TankFrame extends Frame {
 
     @Override
     public void paint(Graphics g) {
-        Color c = g.getColor();
-        g.setColor(Color.WHITE);
-        g.drawString("敌方坦克的数量:" + dfTank.size(), 10, 40);
-        g.drawString("子弹的数量:" + bullets.size(), 10, 60);
-        g.setColor(c);
-
-        //e.paint(g);
-        myTank.paint(g);
-
-        for (int i=0; i<dfTank.size(); i++){
-            g.setColor(Color.blue);
-            dfTank.get(i).paint(g);
-            g.setColor(c);
-
-        }
-
-        for (int i=0; i<bullets.size(); i++){
-            bullets.get(i).paint(g);
-        }
-
-        for (int i=0; i<exploads.size(); i++){
-            exploads.get(i).paint(g);
-        }
-
-        for (int i=0; i<bullets.size(); i++){
-            for(int j=0; j<dfTank.size(); j++)
-                bullets.get(i).collideWith(dfTank.get(j));
-        }
+        gm.paint(g);
     }
 
     class MyKeyListener extends KeyAdapter{
@@ -129,7 +96,7 @@ public class TankFrame extends Frame {
                     break;
                 case KeyEvent.VK_CONTROL:
                     //四面设计策略
-                    myTank.fire();
+                    gm.getMyTank().fire();
                     break;
                 default:
                     break;
@@ -137,6 +104,7 @@ public class TankFrame extends Frame {
             setMainTankDir();
         }
         public void setMainTankDir(){
+            Tank myTank = gm.getMyTank();
             if(!bL && !bU && !bR && !bD){
                 myTank.setMoving(false);
             } else {

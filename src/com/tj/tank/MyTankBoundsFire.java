@@ -26,7 +26,7 @@ public class MyTankBoundsFire implements FireStrategy{
         Dir[] dirs = Dir.values();
 
         for (int i = 0; i <dirs.length ; i++) {
-            new Bullet(bX,bY,dirs[i],t.tf,t.group);
+            new Bullet(bX,bY,dirs[i],t.gm,t.group);
         }
     }
 }

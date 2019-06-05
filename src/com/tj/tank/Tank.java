@@ -9,7 +9,7 @@ public class Tank {
     private static final int SPEED = Integer.parseInt((String)PropertyMgr.getInstance().get("bulletSpeed"));
     Dir dir = Dir.DOWN;
     private boolean moving = true;
-    TankFrame tf = null;
+    GameModel gm = null;
 
     Rectangle ret = new Rectangle();
     public static int WIDTH = ResourceMgr.goodTankD.getWidth();
@@ -31,12 +31,12 @@ public class Tank {
     }
 
 
-    public Tank(int x, int y, Dir dir, TankFrame tf,Group group){
+    public Tank(int x, int y, Dir dir, GameModel gm,Group group){
         super();
         this.x = x;
         this.y = y;
         this.dir = dir;
-        this.tf = tf;
+        this.gm = gm;
         this.group = group;
 
         ret.x = x;
@@ -63,7 +63,7 @@ public class Tank {
     public void paint(Graphics g) {
 
         if(!this.isLiving) {
-            tf.dfTank.remove(this);
+            gm.dfTank.remove(this);
         } else {
                 switch(dir) {
                     case LEFT:
@@ -148,7 +148,7 @@ public class Tank {
     public void die() {
         int eX = this.x + WIDTH/2 - Explode.WIDTH/2;
         int eY = this.y + HEIGHT/2 - Explode.HEIGHT/2;
-        tf.exploads.add(new Explode(eX,eY,tf));
+        gm.exploads.add(new Explode(eX,eY,gm));
         this.isLiving = false;
     }
 }

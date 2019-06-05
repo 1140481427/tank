@@ -15,18 +15,10 @@ public class Bullet {
     private Dir dir = null;
     private boolean isLive = true;
     private Group group = Group.BAD;
-    private TankFrame tf = null;
+    private GameModel gm = null;
     Rectangle ret = new Rectangle();
     public Group getGroup() {
         return group;
-    }
-
-    public TankFrame getTf() {
-        return tf;
-    }
-
-    public void setTf(TankFrame tf) {
-        this.tf = tf;
     }
 
     public int getX() {
@@ -57,25 +49,25 @@ public class Bullet {
         this.group = group;
     }
 
-    public Bullet(int x, int y, Dir dir, TankFrame tf, Group group) {
+    public Bullet(int x, int y, Dir dir, GameModel gm, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
-        this.tf = tf;
+        this.gm = gm;
         this.group = group;
 
         ret.x = x;
         ret.y = y;
         ret.width = WIDTH;
         ret.height = HEIGHT;
-        tf.bullets.add(this);
+        gm.bullets.add(this);
     }
 
     public void paint(Graphics g) {
 
 
         if(!isLive){
-            tf.bullets.remove(this);
+            gm.bullets.remove(this);
         } else {
             switch(dir) {
                 case LEFT:
@@ -114,7 +106,7 @@ public class Bullet {
         ret.x = x;
         ret.y = y;
         
-        if( x < 0 || x > tf.GAME_WIDTH || y < 0 || y > tf.GAME_HEIGHT) isLive = false;
+        if( x < 0 || x > TankFrame.GAME_WIDTH || y < 0 || y > TankFrame.GAME_HEIGHT) isLive = false;
     }
 
     public void collideWith(Tank tank) {

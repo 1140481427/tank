@@ -21,6 +21,6 @@ public class DefaultFireStrategy implements FireStrategy{
         int bY = t.y + t.HEIGHT/2 - Bullet.HEIGHT/2;
 
 
-        new Bullet(bX,bY,t.dir,t.tf,t.group);
+        new Bullet(bX,bY,t.dir,t.gm,t.group);
     }
 }
